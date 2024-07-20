@@ -1,18 +1,24 @@
 <template>
-    
-    <NavBar/>
-
+    <div class="">
+        <DefaultLayout>
+        
+            <Hero/>
+        </DefaultLayout>
+    </div>
+   
 </template>
 
 <script>
-import NavBar from '../components/NavBar.vue'
+import DefaultLayout from '@/layout/DefaultLayout.vue'
+import Hero from '@/components/Hero.vue'
 export default {
 
-    components:{NavBar}
+    components:{DefaultLayout,Hero}
 
 }
 </script>
 
 <style>
+
 
 </style>

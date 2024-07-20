@@ -1,12 +1,22 @@
 <template>
- 
-  <Menubar :model="navs">
+ <div >
+   
+
+  <Menubar :model="navs" class="">
+    <template #start>
+        <div class="text-lg font-bold">
+            Resume Maker
+        </div>
+
+
+
+    </template>
 
     <template #item="{item}">
 
         <a class="flex items-center">
            
-            <span class="ml-2">{{ item.label }}</span>
+            <span class="p-2">{{ item.label }}</span>
 
         </a>
 
@@ -14,7 +24,19 @@
     </template>
 
 
+    <template #end>
+        <div>
+            <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
+        </div>
+
+
+
+    </template>
+
+
   </Menubar>
+
+</div>
 </template>
 
 <script>
@@ -22,8 +44,10 @@
 import Menubar from 'primevue/menubar';
 import { storeToRefs } from 'pinia'
 import {useNavStore} from '@/stores/nav'
+import InputText from 'primevue/inputtext';
+import Image from 'primevue/image';
 export default {
-    components:{Menubar},
+    components:{Menubar,Image,InputText},
 
     setup(){
         const store= useNavStore()
