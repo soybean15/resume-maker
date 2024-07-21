@@ -1,15 +1,16 @@
 <template>
-  
+
 
     <div class="card">
         <Stepper value="1">
-            <StepItem value="1"  >
+            <StepItem value="1">
                 <Step>
                     <div class="flex items-center">Basic Information
 
                         <div class="mx-1" v-if="checkErrors(1)">
                             <i class="pi pi-exclamation-circle text-red-500" style="font-size: 1rem"></i>
                         </div>
+
                     </div>
                 </Step>
                 <StepPanel v-slot="{ activateCallback }">
@@ -17,35 +18,49 @@
                         <StepOne></StepOne>
                     </div>
                     <div class="py-6">
-                        <Button label="Next" @click="submit(1,()=>{activateCallback('2')})" />
+                        <Button label="Next" @click="submit(()=>{activateCallback('2')})" />
                     </div>
                 </StepPanel>
             </StepItem>
-            <StepItem value="2" >
+            <StepItem value="2">
                 <Step>Educational Background</Step>
                 <StepPanel v-slot="{ activateCallback }">
                     <div class="flex flex-col ">
-                      
-                        <StepTwo/>
-                        
+
+                        <StepTwo />
+
                     </div>
                     <div class="flex py-6 gap-2">
-                      
-                        <Button label="Back" severity="secondary"  @click="activateCallback('1')" />
-                       
-                        <Button label="Next" @click="submit(2,()=>{activateCallback('3')})" />
-                            <Button label="Skip" severity="help" @click="activateCallback('3')" />
+
+                        <Button label="Back" severity="secondary" @click="activateCallback('1')" />
+
+                        <Button label="Next" @click="submit(() => { activateCallback('3') })" />
+                        <Button label="Skip" link severity="help" @click="activateCallback('3')" />
                     </div>
                 </StepPanel>
             </StepItem>
             <StepItem value="3">
                 <Step>Professional Background</Step>
                 <StepPanel v-slot="{ activateCallback }">
-                    <div class="flex flex-col h-48">
-                        <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
+                    <div class="flex flex-col ">
+                        <StepThree />
                     </div>
-                    <div class="py-6">
+                    <div class="flex py-6 gap-2">
                         <Button label="Back" severity="secondary" @click="activateCallback('2')" />
+                        <Button label="Next" @click="submit(() => { activateCallback('4') })" />
+                    </div>
+                </StepPanel>
+            </StepItem>
+
+            <StepItem value="4">
+                <Step>Skills</Step>
+                <StepPanel v-slot="{ activateCallback }">
+                    <div class="flex flex-col ">
+                        <StepFour />
+                    </div>
+                    <div class="py-6 flex gap-2">
+                        <Button label="Back" severity="secondary" @click="activateCallback('2')" />
+                        <Button label="Finish" @click="submit(() => { activateCallback('3') })" />
                     </div>
                 </StepPanel>
             </StepItem>
@@ -65,10 +80,13 @@ import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Button from 'primevue/button';
 import StepOne from '@/components/StepOne.vue'
+import StepThree from './StepThree.vue';
+
 import { ref } from 'vue';
 import { useFormStore } from '@/stores/form';
 import { storeToRefs } from 'pinia';
 import StepTwo from './StepTwo.vue';
+import StepFour from './StepFour.vue';
 export default {
     components:{
         Stepper,
@@ -79,7 +97,9 @@ export default {
         StepPanels,
         Button,
         StepOne,
-        StepTwo
+        StepTwo,
+        StepThree,
+        StepFour
     }, 
 
     setup(){
@@ -116,31 +136,29 @@ export default {
 
 
            
-            submit: (step,next) => {
+            submit: ( next) => {
                 let rules = {}
-                
-                switch (step){
-                    case 1: {
-                        rules = {
-                            fullName: { required: true ,label:'Full Name'},
-                            email: { email: true, required: true,label:'Email' },
-                            birthDate: { date: true, required: false,label:'Birth Date' },
-                            contactNo: { required: true ,label:'Contact Number'},
-                        };
 
 
-                  
-                        store.validateForm(rules)
+                rules = {
+                    fullName: { required: true, label: 'Full Name' },
+                    email: { email: true, required: true, label: 'Email' },
+                    birthDate: { date: true, required: false, label: 'Birth Date' },
+                    contactNo: { required: true, label: 'Contact Number' },
+                };
 
 
 
-                        break;
-                    }
-                }
+                store.validateForm(rules)
+
+
+
+
+
                 console.log(Object.keys(errors.value).length)
 
                 if (Object.keys(errors.value).length === 0) {
-                   
+
                     console.log(step)
                     next();
                 }

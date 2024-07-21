@@ -11,8 +11,9 @@ export const useFormStore = defineStore('form', () => {
         birthDate:'',
         citizenship:'',
         civilStatus:'',
-        educationalBackground:[]
-      
+        educationalBackground:[],
+        professionalBackground:[],
+        skills:[]
     })
 
     
