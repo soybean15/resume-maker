@@ -7,7 +7,7 @@
                 <Step>
                     <div class="flex items-center">Basic Information
 
-                        <div class="mx-1" v-if="checkErrors(1)">
+                        <div class="mx-1" v-if="store.checkErrors(1)">
                             <i class="pi pi-exclamation-circle text-red-500" style="font-size: 1rem"></i>
                         </div>
 
@@ -60,7 +60,7 @@
                     </div>
                     <div class="py-6 flex gap-2">
                         <Button label="Back" severity="secondary" @click="activateCallback('2')" />
-                        <Button label="Finish" @click="submit(() => { activateCallback('3') })" />
+                        <Button label="Finish" @click="submit(() => {router.push({name:'formInfo'})})" />
                     </div>
                 </StepPanel>
             </StepItem>
@@ -81,6 +81,7 @@ import StepPanel from 'primevue/steppanel';
 import Button from 'primevue/button';
 import StepOne from '@/components/StepOne.vue'
 import StepThree from './StepThree.vue';
+import { router } from '@/router';
 
 import { ref } from 'vue';
 import { useFormStore } from '@/stores/form';
@@ -107,6 +108,7 @@ export default {
 
        
         const store = useFormStore()
+        store.getForm()
 
         const {errors,form} = storeToRefs(store)
 
@@ -114,25 +116,9 @@ export default {
         return {
             errors,
 
-            checkErrors: (step) => {
-                switch (step) {
-                    case 1: {
-                        const keys = ['fullName', 'contactNo', 'email', 'birthDate']
-
-                        for (const key in errors.value) {
-                            if (errors.value.hasOwnProperty(key)) {
-                                return true;
-                               
-                            }
-                        }
-                    }
-
-                }
-
-                return false;
-
-
-            },
+            store,
+            router,
+          
 
 
            
@@ -159,9 +145,13 @@ export default {
 
                 if (Object.keys(errors.value).length === 0) {
 
-                    console.log(step)
+                 
                     next();
+                    localStorage.setItem('resume-info', JSON.stringify(form.value));
                 }
+
+              
+
                
          
              }

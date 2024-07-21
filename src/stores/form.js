@@ -47,9 +47,42 @@ export const useFormStore = defineStore('form', () => {
         });
 
     
-    
    
     };
+
+    const checkErrors= (step) => {
+        switch (step) {
+            case 1: {
+                const keys = ['fullName', 'contactNo', 'email', 'birthDate']
+
+                for (const key in errors.value) {
+                    if (errors.value.hasOwnProperty(key)) {
+                      
+                        return true;
+                       
+                    }
+                }
+            }
+
+        }
+        console.log('eyy')
+        return false;
+
+
+    }
+
+    const getForm=()=>{
+        
+        const storedForm = JSON.parse(localStorage.getItem('resume-info'));
+
+
+
+
+        if(storedForm){
+            form.value=storedForm
+        }
+        console.log(storedForm)
+    }
 
 
     
@@ -58,6 +91,8 @@ export const useFormStore = defineStore('form', () => {
     return {
         form,
         errors,
-        validateForm
+        validateForm,
+        getForm,
+        checkErrors
     }
 })
