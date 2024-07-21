@@ -14,11 +14,13 @@
 
     <template #item="{item}">
 
-        <a class="flex items-center">
-           
+        <router-link :to="{name:item.name}">
+            <i :class="`pi ${item.icon}`" style="font-size: 1rem"></i>
+
+        
             <span class="p-2">{{ item.label }}</span>
 
-        </a>
+        </router-link>
 
 
     </template>

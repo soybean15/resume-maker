@@ -1,9 +1,6 @@
 <template>
     <div class="">
-        <DefaultLayout>
-        
-            <Hero/>
-        </DefaultLayout>
+      <Hero/>
     </div>
    
 </template>
