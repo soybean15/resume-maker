@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export const useNavStore = defineStore('nav', defineStore('counter', () => {
+export const useNavStore = defineStore('nav',() => {
 
 
     const navs = ref([
@@ -12,4 +12,4 @@ export const useNavStore = defineStore('nav', defineStore('counter', () => {
     ])
 
     return {navs}
-}))
+})

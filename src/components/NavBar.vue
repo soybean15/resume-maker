@@ -5,7 +5,7 @@
   <Menubar :model="navs" class="">
     <template #start>
         <div class="text-lg font-bold">
-            Resume Maker
+            Instant Resume
         </div>
 
 
